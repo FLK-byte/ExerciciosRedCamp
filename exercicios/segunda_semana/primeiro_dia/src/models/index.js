@@ -1,24 +1,37 @@
-const { integrationHttp } = require('../services/http')
+/* const { integrationHttp } = require('../services/http')
 
-const url = 'https://624df93353326d0cfe55cbf7.mockapi.io/users'
+const url = 'https://624df93353326d0cfe55cbf7.mockapi.io/users' */
 
+const { connectDb } = require('../database/connect')
+const { ObjectId } = require('mongodb')
 
 exports.getAllUsers = async () => {
-    return integrationHttp(`${url}`, "GET")
+    const collection = await connectDb('usuarios', 'users')
+    const data = await collection.find().toArray()
+    return { data, status: 200 }
 }
 
-exports.createOneUser = async ({name, email}) => {
-    return integrationHttp(`${url}`, "POST", {name, email})
+exports.createOneUser = async ({ name, email }) => {
+    const collection = await connectDb('usuarios', 'users')
+    const { insertedId } = await collection.insertOne({ name, email })
+    return { data: { id: insertedId, name, email }, status: 201 }
 }
 
 exports.getOneUser = async (id) => {
-    return integrationHttp(`${url}/${id}`, "GET")
+    const collection = await connectDb('usuarios', 'users')
+    const data = await collection.findOne({ _id: ObjectId(id) })
+    return { data, status: 200 }
 }
 
-exports.putUser = async (id, {name, email}) =>{
-    return integrationHttp(`${url}/${id}`, "PUT", {name, email})
+exports.putUser = async (id, { name, email }) => {
+    const collection = await connectDb('usuarios', 'users')
+    const { insertedId } = await collection.updateOne({ _id: ObjectId(id) }, { $set: { name, email } })
+    return { data: { id: insertedId, name, email }, status: 201 }
 }
 
 exports.removeUser = async (id) => {
-    return integrationHttp(`${url}/${id}`, "DELETE")
+    const collection = await connectDb('usuarios', 'users')
+    const dataUser = await collection.findOne({ _id: ObjectId(id) })
+    const data = await collection.deleteOne({ _id: ObjectId(id) })
+    return { data : dataUser, status: 200 }
 }
