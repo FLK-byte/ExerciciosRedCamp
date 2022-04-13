@@ -54,4 +54,5 @@
     transaction(100, "56", "57")
     // AStolfo pessoa: 56 LojaAstolfo: 57
     //createUser(1000, "LojaAstolfo", "123.456.789-454444", "LojaAstolfo@redfox.tech", "senhaSegura", true )
+    //Nao esta funcionando :( )
 })()
