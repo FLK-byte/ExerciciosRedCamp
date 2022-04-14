@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const url = 'mongodb+srv://batatinha123:batatinha123@auladev.fmmz0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const url = process.env.DATABASEURL;
 const client = new MongoClient(url);
 
 exports.connectDb = async (DataBase, Collection) => {
