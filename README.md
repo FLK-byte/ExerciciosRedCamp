@@ -1,3 +1,3 @@
 # ExerciciosRedCamp
 
-Ultimo Exercicio está na pasta-> ExerciciosRedCamp/exercicios/segunda_semana/segundo_dia/src
+Ultimo Exercicio está na pasta-> ExerciciosRedCamp/exercicios/terceira_semana/diaUm/src

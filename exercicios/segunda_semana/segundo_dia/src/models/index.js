@@ -6,4 +6,6 @@ exports.getSearchs = async (searchWord) => {
     return { data, status: 200 }
 }
 
-db.searchs.find({$text:{$search: {"text": {"path" : "name", "query" : "DNA"}}}}, {score:{$meta:"textScore"}}).sort({score:{$meta: "textScore"}}).pretty()
+db.searchs.find({$or:[{name:/D/i},{body:/D/i}]}).pretty()
+
+//db.searchs.find({$text:{$search:`DNA`}, {$or:[{name:/D/i},{body:/D/i}]}}, {score:{$meta:"textScore"}}).sort({score:{$meta: "textScore"}}).pretty()
