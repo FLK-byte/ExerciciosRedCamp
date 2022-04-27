@@ -3,8 +3,11 @@ import http from 'k6/http';
 
 const timing = 1000
 export const options = {
-  vus: 1000,
-  duration: '30s',
+  stages: [
+    { duration: '10s', target: 100 },
+    { duration: '40s', target: 150 },
+    { duration: '10s', target: 50 },
+  ],
 };
 export default function () {
   // const res = http.get(url);
@@ -13,12 +16,12 @@ export default function () {
     url: 'http://localhost:3000/user',
   }
 
- /*  const req2 = {
+  /* const req2 = {
     method: 'GET',
-    url: 'http://localhost:3000/user/6269223784d0b5ab84c87c0f',
+    url: 'http://localhost:3000/user/626920587dd3a8e058dc4440',
   } */
 
-   /* const req3 = {
+   /* const req3 = JSON.stringify({
      method: 'POST',
      url: 'http://localhost:3000/user',
      body: JSON.stringify({
@@ -28,7 +31,7 @@ export default function () {
      params: {
        headers: { 'Content-Type': 'application/json' },
      },
-   } */
+   }) */
 
   const responses = http.batch([req1])
 
