@@ -206,3 +206,4 @@ test('Request Delete - /user  expected status 404 - Delete with invalid ID', asy
     expect(result.body.messageError.length).toBe(22)
     expect(result.body).toEqual({ messageError: "Usuario não encontrado" })
 })
+

@@ -1,8 +1,13 @@
-const {createOneUser, getAllUsers, putUser, getOneUserById, removeUser} = require('../models/index')
+const { createOneUser, getAllUsers, putUser, getOneUserById, removeUser } = require('../models/index')
 
 exports.getUsers = async (req, res) => {
-    const { data, status } = await getAllUsers()
-    res.status(status).json(data)
+    try {
+        const {page = 0, limit = 10} = req.query
+        const { data, status } = await getAllUsers(Number(page), Number(limit))
+        res.status(status).json(data)
+    }catch (err) {
+        res.status(500).json({message : "Erro não esperado"})
+    }
 }
 
 exports.createUser = async (req, res) => {
@@ -15,7 +20,7 @@ exports.getUser = async (req, res) => {
     res.status(status).json(data)
 }
 
-exports.put = async (req, res) =>{
+exports.put = async (req, res) => {
     const { data, status } = await putUser(req.params.id, req.body)
     res.status(status).json(data)
 }

@@ -1,15 +1,17 @@
 const { MongoClient } = require('mongodb');
 require('dotenv/config')
-const url = process.env.DATABASE_URL || 'mongodb://localhost:27017';
+const url = process.env.DATABASE_URL;
 const client = new MongoClient(url);
-
+var connection = null
 exports.connectDb = async (DataBase, Collection) => {
-    try {
-        await client.connect();
-        const db = client.db(DataBase);
-        return db.collection(Collection);
-    } catch (err) {
-        console.log("erro", err)
+    if(connection === null){
+        console.log("criando nova conexao")
+        await client.connect()
+        await client.db('admin').command({ping: 1})
+        connection = client.db(DataBase)
+    }
+    return {
+        collection : connection.collection(Collection)
     }
 }
 

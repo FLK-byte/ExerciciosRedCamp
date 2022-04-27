@@ -1,7 +1,7 @@
 {
   "name": "segunda_semana",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/",
   "license": "MIT",
   "scripts": {
     "test": "jest"
@@ -17,6 +17,7 @@
     "supertest": "^6.2.2"
   },
   "devDependencies": {
-    "@faker-js/faker": "^6.2.0"
+    "@faker-js/faker": "^6.2.0",
+    "morgan": "^1.10.0"
   }
 }

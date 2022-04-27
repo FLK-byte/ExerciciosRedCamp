@@ -12,7 +12,8 @@ exports.validateCreate = [
     body('email').trim().notEmpty().isEmail()
 ]
 exports.validateGetAll = async (req, res, next) =>{
-    const {data} = await getAllUsers()
+    const {page = 0, limit = 10} = req.query
+    const {data} = await getAllUsers(Number(page), Number(limit))
     if(data.length == 0) return res.status(404).json([{messageError : "Não há usuarios"}])
     return next()
 }

@@ -1,9 +1,21 @@
 const { connectDb } = require('../database/connect')
 const { ObjectId } = require('mongodb')
 
-exports.getAllUsers = async () => {
-    const collection = await connectDb('usuarios', 'users')
-    const data = await collection.find().toArray()
+exports.getAllUsers = async (page, limit) => {
+    const {collection} = await connectDb('usuarios', 'users')
+    const skip = page > 0 ? page * limit : 0
+    const [data] = await collection.aggregate(
+        [
+            {
+                $facet: {
+                    metaData: [{ $count: 'total' },
+                    { $addFields: { page } }],
+                    data: [{ $skip: skip }, { $limit: limit}]
+                }
+            }
+        ]
+    ).toArray()
+    /* const data = await collection.find().toArray() */
     return { data, status: 200 }
 }
 
@@ -14,14 +26,14 @@ exports.createOneUser = async ({ name, email }) => {
 }
 
 exports.getOneUserById = async (id) => {
-    const collection = await connectDb('usuarios', 'users')
+    const {collection} = await connectDb('usuarios', 'users')
     const data = await collection.findOne({ _id: ObjectId(id) })
     return { data, status: 200 }
 }
 
 exports.getOneUserByEmail = async (email) => {
     const collection = await connectDb('usuarios', 'users')
-    const data = await collection.findOne({email: email })
+    const data = await collection.findOne({ email: email })
     return { data, status: 200 }
 }
 
@@ -35,5 +47,5 @@ exports.removeUser = async (id) => {
     const collection = await connectDb('usuarios', 'users')
     const dataUser = await collection.findOne({ _id: ObjectId(id) })
     const data = await collection.deleteOne({ _id: ObjectId(id) })
-    return { data : dataUser, status: 200 }
+    return { data: dataUser, status: 200 }
 }
