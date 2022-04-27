@@ -4,14 +4,18 @@ const url = process.env.DATABASE_URL;
 const client = new MongoClient(url);
 var connection = null
 exports.connectDb = async (DataBase, Collection) => {
-    if(connection === null){
-        console.log("criando nova conexao")
+
+    if (connection === null) {
+        console.log("Primeira iteração")
         await client.connect()
-        await client.db('admin').command({ping: 1})
+        await client.db('admin').command({ ping: 1 })
         connection = client.db(DataBase)
     }
+    if (connection != null) {
+        await connection.command({ ping: 1 })
+    }
     return {
-        collection : connection.collection(Collection)
+        collection: connection.collection(Collection)
     }
 }
 
