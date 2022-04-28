@@ -17,8 +17,8 @@ exports.validateGetAll = async (req, res, next) => {
         const { data } = await getAllUsers(Number(page), Number(limit))
         if (data.length == 0) return res.status(404).json([{ messageError: "Não há usuarios" }])
         return next()
-    }catch (err) {
-        
+    } catch (err) {
+        return res.status(500).json({ message: "Erro não esperado -> middleware" })
     }
 }
 exports.validateErrorUser = (req, res, next) => {
@@ -30,18 +30,25 @@ exports.validateErrorUser = (req, res, next) => {
 }
 
 exports.validateDuplicatedUserEmail = async (req, res, next) => {
-    const { email } = req.body
-    const { data } = await getOneUserByEmail(email)
-    if (data) return res.status(400).json({ messageError: 'Cadastro duplicado' })
-    return next()
+    try {
+        const { email } = req.body
+        const { data } = await getOneUserByEmail(email)
+        if (data) return res.status(400).json({ messageError: 'Cadastro duplicado' })
+        return next()
+    } catch (err) {
+        return res.status(500).json({ message: "Erro não esperado -> middleware" })
+    }
 }
 
 exports.validateFoundById = async (req, res, next) => {
-    const { id } = req.params
-    const { data } = await getOneUserById(id)
-
-    if (!data) return res.status(404).json({ messageError: 'Usuario não encontrado' })
-    return next()
+    try {
+        const { id } = req.params
+        const { data } = await getOneUserById(id)
+        if (!data) return res.status(404).json({ messageError: 'Usuario não encontrado' })
+        return next()
+    } catch (err) {
+        return res.status(500).json({ message: "Erro não esperado -> middleware" })
+    }
 }
 
 
