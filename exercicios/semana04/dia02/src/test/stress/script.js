@@ -1,17 +1,15 @@
 import { check } from 'k6';
 import http from 'k6/http';
 
-const timing = 1000
+const timing = 5000
 export const options = {
-  vus: 5000,
-  duration : '30s' 
-  /* stages: [
+  stages: [
     { duration: '10s', target: 100 },
-    { duration: '40s', target: 150 },
-    { duration: '10s', target: 50 },
-  ], */
+    /* { duration: '40s', target: 150 },
+    { duration: '10s', target: 50 }, */
+  ],
 };
-export default function () {
+export default function () {0
   // const res = http.get(url);
   const req1 = {
     method: 'GET',
