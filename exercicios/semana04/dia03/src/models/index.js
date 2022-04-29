@@ -36,7 +36,14 @@ exports.getAllUsers = async (page, limit) => {
             ]
         ).toArray()
         await connect.set(key, JSON.stringify(data))
-        storedKeys.push(key)
+        console.log(storedKeys.length)
+        if(storedKeys.length == 0){
+            storedKeys.push(key)
+        }else {
+            storedKeys.map(keyArmazenada =>{
+                keyArmazenada == key ? null : storedKeys.push(key)
+            })
+        }
         /* const data = await collection.find().toArray() */
         return { data, status: 200 }
     } catch (err) {
