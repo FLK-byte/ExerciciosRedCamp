@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb')
 const { connectRedis } = require('../database/redis')
 
 const storedKeys = []
-function findIdInKeys(id) {
+function findAndClearIdInKeys(id) {
     storedKeys.map(async (key) => {
         const connect = await connectRedis()
         const result = await connect.get(key)
@@ -70,7 +70,7 @@ exports.getOneUserByEmail = async (email) => {
 
 exports.putUser = async (id, { name, email }) => {
     try {
-        findIdInKeys(id)
+        findAndClearIdInKeys(id)
         const connect = await connectRedis()
         const key = `users - id: ${id}`
         const { collection } = await connectDb('usuarios', 'users')
@@ -84,6 +84,7 @@ exports.putUser = async (id, { name, email }) => {
 }
 
 exports.removeUser = async (id) => {
+    /* findAndClearIdInKeys(id) */
     const { collection } = await connectDb('usuarios', 'users')
     const dataUser = await collection.findOne({ _id: ObjectId(id) })
     const data = await collection.deleteOne({ _id: ObjectId(id) })
