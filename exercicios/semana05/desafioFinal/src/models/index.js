@@ -4,19 +4,6 @@ const { ObjectId } = require('mongodb')
 const axios = require('axios')
 const cheerio = require('cheerio');
 
-/* const storedKeys = []
-function findAndClearIdInKeys(id) {
-    storedKeys.map(async (key) => {
-        const connect = await connectRedis()
-        const result = await connect.get(key)
-        JSON.parse(result).map(async (post)=>{
-            if(post._id == id){
-                return await connect.set(key, null)
-            }
-  
-        })
-    })
-} */
 exports.writePostsInDb = async () => {
     try {
         const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts')
@@ -40,13 +27,6 @@ exports.getAllPosts = async () => {
         const { collection } = await connectDb('postagens', 'allPostagens')
         const data = await collection.find({}, { title: 1, body: 1 }).toArray()
         await connect.set(key, JSON.stringify(data))
-        /* if (storedKeys.length == 0) {
-            storedKeys.push(key)
-        } else {
-            storedKeys.map(keyArmazenada => {
-                keyArmazenada == key ? null : storedKeys.push(key)
-            })
-        } */
         return { data, status: 200 }
     } catch (err) {
         return ("Erro model getAllUsers->", err.message)
