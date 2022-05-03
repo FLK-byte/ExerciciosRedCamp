@@ -17,7 +17,7 @@ exports.validateGetAll = async (req, res, next) => {
         if (data.length == 0) return res.status(404).json([{ messageError: "Não há postagens" }])
         return next()
     } catch (err) {
-        return res.status(500).json({ message: "Erro não esperado -> middleware" })
+        return res.status(500).json({ message: "Erro não esperado validateGetAll -> middleware" })
     }
 }
 exports.validateErrorUser = (req, res, next) => {
@@ -35,7 +35,7 @@ exports.validateFoundById = async (req, res, next) => {
         if (!data) return res.status(404).json({ messageError: 'Notícia não encontrada' })
         return next()
     } catch (err) {
-        return res.status(500).json({ message: "Erro não esperado -> middleware" })
+        return res.status(500).json({ message: "Erro não esperado validateFoundById -> middleware" })
     }
 }
 
