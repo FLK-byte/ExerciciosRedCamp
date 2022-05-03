@@ -7,9 +7,8 @@ function findAndClearIdInKeys(id) {
     storedKeys.map(async (key) => {
         const connect = await connectRedis()
         const result = await connect.get(key)
-        JSON.parse(result).data.map(async (user) =>{
-            if (user._id == id){
-                console.log("key limpa")
+        JSON.parse(result).data.map(async (user) => {
+            if (user._id == id) {
                 await connect.set(key, null)
             }
         })
@@ -17,7 +16,7 @@ function findAndClearIdInKeys(id) {
 }
 exports.getAllUsers = async (page, limit) => {
     try {
-        console.log("StoredKeys ->", storedKeys)
+
         const connect = await connectRedis()
         const key = `users - page: ${page} - limit: ${limit}`
         const result = await connect.get(key)
@@ -36,11 +35,10 @@ exports.getAllUsers = async (page, limit) => {
             ]
         ).toArray()
         await connect.set(key, JSON.stringify(data))
-        console.log(storedKeys.length)
-        if(storedKeys.length == 0){
+        if (storedKeys.length == 0) {
             storedKeys.push(key)
-        }else {
-            storedKeys.map(keyArmazenada =>{
+        } else {
+            storedKeys.map(keyArmazenada => {
                 keyArmazenada == key ? null : storedKeys.push(key)
             })
         }

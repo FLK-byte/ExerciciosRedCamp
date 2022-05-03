@@ -1,5 +1,5 @@
 {
-  "name": "segunda_semana",
+  "name": "desafioFinal",
   "version": "1.0.0",
   "main": "src/",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "express-validator": "^6.14.0",
     "jest": "^27.5.1",
     "mongodb": "^4.5.0",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.16",
     "redis": "^4.0.6",
     "supertest": "^6.2.2"
   },

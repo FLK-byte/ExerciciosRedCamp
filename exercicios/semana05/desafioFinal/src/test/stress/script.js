@@ -1,7 +1,7 @@
 import { check } from 'k6';
 import http from 'k6/http';
 
-const timing = 5000
+const timing = 1000
 export const options = {
   stages: [
     { duration: '10s', target: 100 },
@@ -13,12 +13,12 @@ export default function () {0
   // const res = http.get(url);
   const req1 = {
     method: 'GET',
-    url: 'http://localhost:3000/user',
+    url: 'http://localhost:3000/post',
   }
 
   const req2 = {
     method: 'GET',
-    url: 'http://localhost:3000/user/626920587dd3a8e058dc4440',
+    url: 'http://localhost:3000/post/627089d3c7b30c251ec6992f',
   }
 
    /* const req3 = JSON.stringify({
