@@ -17,7 +17,7 @@
         <div id="cabecalho" style="display: flex; flex-direction: column;">
             <img src="https://i0.wp.com/redfox.tech/wp-content/uploads/2022/02/logo.png" style="max-width: 250px;"/>
         </div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="align-self: center;">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="align-self: center;" id="botaoCadastrar">
             Cadastrar
           </button>
           
@@ -26,19 +26,32 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Cadastrar</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  ...
+                  <form>
+                    <div class="mb-3" id="idForm">
+                    </div>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">Name:</label>
+                      <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="recipient-email" class="col-form-label">Email:</label>
+                      <input type="text" class="form-control" id="recipient-email">
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="botaoDinamicoForm"></button>
+                  </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  
                 </div>
               </div>
             </div>
           </div>
+
         <div id="users" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 
         </div>

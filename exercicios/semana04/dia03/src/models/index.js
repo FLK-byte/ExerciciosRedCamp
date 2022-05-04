@@ -2,7 +2,7 @@ const { connectDb } = require('../database/connect')
 const { ObjectId } = require('mongodb')
 const { connectRedis } = require('../database/redis')
 
-const storedKeys = []
+/* const storedKeys = []
 function findAndClearIdInKeys(id) {
     storedKeys.map(async (key) => {
         const connect = await connectRedis()
@@ -13,14 +13,14 @@ function findAndClearIdInKeys(id) {
             }
         })
     })
-}
+} */
 exports.getAllUsers = async (page, limit) => {
     try {
 
-        const connect = await connectRedis()
+        /* const connect = await connectRedis()
         const key = `users - page: ${page} - limit: ${limit}`
         const result = await connect.get(key)
-        if (result) return { data: JSON.parse(result), status: 200 }
+        if (result) return { data: JSON.parse(result), status: 200 } */
         const { collection } = await connectDb('usuarios', 'users')
         const skip = page > 0 ? page * limit : 0
         const [data] = await collection.aggregate(
@@ -34,14 +34,14 @@ exports.getAllUsers = async (page, limit) => {
                 }
             ]
         ).toArray()
-        await connect.set(key, JSON.stringify(data))
+        /* await connect.set(key, JSON.stringify(data))
         if (storedKeys.length == 0) {
             storedKeys.push(key)
         } else {
             storedKeys.map(keyArmazenada => {
                 keyArmazenada == key ? null : storedKeys.push(key)
             })
-        }
+        } */
         /* const data = await collection.find().toArray() */
         return { data, status: 200 }
     } catch (err) {
@@ -56,14 +56,14 @@ exports.createOneUser = async ({ name, email }) => {
 }
 
 exports.getOneUserById = async (id) => {
-    const connect = await connectRedis()
+/*     const connect = await connectRedis()
     const key = `users - id: ${id}`
     const result = await connect.get(key)
     if (result) return { data: JSON.parse(result), status: 200 }
-
+ */
     const { collection } = await connectDb('usuarios', 'users')
     const data = await collection.findOne({ _id: ObjectId(id) })
-    await connect.set(key, JSON.stringify(data))
+    //await connect.set(key, JSON.stringify(data))
     return { data, status: 200 }
 }
 
@@ -75,13 +75,13 @@ exports.getOneUserByEmail = async (email) => {
 
 exports.putUser = async (id, { name, email }) => {
     try {
-        findAndClearIdInKeys(id)
-        const connect = await connectRedis()
-        const key = `users - id: ${id}`
+        //findAndClearIdInKeys(id)
+        /* const connect = await connectRedis()
+        const key = `users - id: ${id}` */
         const { collection } = await connectDb('usuarios', 'users')
         const { insertedId } = await collection.updateOne({ _id: ObjectId(id) }, { $set: { name, email } })
 
-        await connect.set(key, JSON.stringify({ id: insertedId, name, email }))
+        //await connect.set(key, JSON.stringify({ id: insertedId, name, email }))
         return { data: { id: insertedId, name, email }, status: 201 }
     } catch (err) {
         console.log("Erro model putUser ->", err.message)
@@ -89,7 +89,6 @@ exports.putUser = async (id, { name, email }) => {
 }
 
 exports.removeUser = async (id) => {
-    /* findAndClearIdInKeys(id) */
     const { collection } = await connectDb('usuarios', 'users')
     const dataUser = await collection.findOne({ _id: ObjectId(id) })
     const data = await collection.deleteOne({ _id: ObjectId(id) })
