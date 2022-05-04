@@ -1,0 +1,9 @@
+{
+  "name": "insominia",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "insomnia-documenter": "^0.5.4"
+  }
+}
