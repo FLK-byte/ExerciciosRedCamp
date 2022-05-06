@@ -1,42 +1,23 @@
-window.onload = async function () {
-    /* const fetchResponsePromise = fetch("http://localhost:3000/user")
-    const Users = []
-    await fetchResponsePromise
-    .then((res)=>{
-        res.text()
-        .then((result)=>{
-            JSON.parse(result).data.map(el=>{
-                Users.push(el)
-            })
-        })
-    })
-
-    setTimeout(()=>console.log(Users), 1000)
-    const divUsers = document.querySelector("#users")
-    divUsers.innerHTML = "OLA"
-     */
-
-
-
+window.onload = async function () { 
+    const url = "https://ca77-187-182-47-3.sa.ngrok.io/user"
+    //https://803a-2804-431-e7c1-70a8-84c1-80ac-f1a5-20a4.sa.ngrok.io/users"
     async function getUsers() {
         try {
-            let res = await fetch("https://803a-2804-431-e7c1-70a8-84c1-80ac-f1a5-20a4.sa.ngrok.io/users");
+            let res = await fetch(url);
+            console.log(res)
             return await res.json();
         } catch (error) {
             console.log(error);
         }
     }
-
     async function renderUsers() {
         let users = await getUsers();
+        console.log(users)
         return users
     }
-    async function renderizarTela() {
-
-        const dados = await renderUsers();
-
+    const dados = await renderUsers();
+    async function renderizarTela(dados) {
         const divUsers = document.querySelector("#users")
-        console.log(dados.data)
 
         dados.data.map((value, index) => {
             const divUs = document.createElement('div')
@@ -64,7 +45,7 @@ window.onload = async function () {
             var botaoCadastro = document.querySelector("#botaoCadastrar")
 
             botaoDeletar.onclick = async () => {
-                await fetch(`https://803a-2804-431-e7c1-70a8-84c1-80ac-f1a5-20a4.sa.ngrok.io/users/${value._id}`,
+                await fetch(`${url}/${value._id}`,
                     {
                         method: 'DELETE'
                     })
@@ -89,7 +70,6 @@ window.onload = async function () {
 
                 myModal.show()
             }
-
             var exampleModal = document.getElementById('exampleModal')
             exampleModal.addEventListener('show.bs.modal', function () {
                 var action = botaoEditar.getAttribute('data-bs-whatever')
@@ -131,11 +111,11 @@ window.onload = async function () {
         var inputId = document.querySelector("#recipient-id")
 
         exampleModalButtonSendForm.innerHTML == "Cadastrar" ? await postData({"name" : inputName.value, "email":inputEmail.value}) : await editarData(inputId.value,{"name" : inputName.value, "email":inputEmail.value})
+        exampleModalButtonSendForm.disabled = true
         this.location.reload()
     }
     async function postData(data){
         try {
-            let url = "https://803a-2804-431-e7c1-70a8-84c1-80ac-f1a5-20a4.sa.ngrok.io/users"
             let res = await fetch(url, {
                 method : "POST",
                 headers: {
@@ -150,8 +130,7 @@ window.onload = async function () {
     }
     async function editarData(id,data){
         try {
-            let url = `https://803a-2804-431-e7c1-70a8-84c1-80ac-f1a5-20a4.sa.ngrok.io/users/${id}`
-            let res = await fetch(url, {
+            let res = await fetch(`${url}/${id}`, {
                 method : "PUT",
                 headers: {
                     'Content-Type': 'application/json'
@@ -163,6 +142,6 @@ window.onload = async function () {
             console.log(error);
         }
     }
-    renderizarTela()
+    renderizarTela(dados)
 
 }
