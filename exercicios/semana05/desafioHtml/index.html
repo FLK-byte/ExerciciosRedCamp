@@ -2,60 +2,93 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <title>Document</title>
-    <script src="./index.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <title>Document</title>
+  <script src="./index.js"></script>
 </head>
 
 <body style="padding: 0; margin: 0;">
 
-    <div id="pagina" dist>
-        <div id="cabecalho" style="display: flex; flex-direction: column;">
-            <img src="https://i0.wp.com/redfox.tech/wp-content/uploads/2022/02/logo.png" style="max-width: 250px;"/>
-        </div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="align-self: center;" id="botaoCadastrar">
-            Cadastrar
-          </button>
-          
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Cadastrar</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="mb-3" id="idForm">
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Name:</label>
-                      <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-email" class="col-form-label">Email:</label>
-                      <input type="text" class="form-control" id="recipient-email">
-                    </div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="botaoDinamicoForm"></button>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-
-        <div id="users" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-
-        </div>
+  <div id="pagina" dist>
+    <div id="cabecalho" style="display: flex; flex-direction: column;">
+      <img src="https://i0.wp.com/redfox.tech/wp-content/uploads/2022/02/logo.png" style="max-width: 250px;" />
     </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      style="align-self: center;" id="botaoCadastrar">
+      Cadastrar
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Cadastrar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3" id="idForm">
+                <label for="recipient-name" class="col-form-label">Id:</label>
+                <input type="text" class="form-control" id="recipient-id" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Name:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="recipient-email" class="col-form-label">Email:</label>
+                <input type="text" class="form-control" id="recipient-email">
+              </div>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="botaoDinamicoForm"></button>
+            </form>
+          </div>
+          <div class="modal-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Object ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <nav aria-label="...">
+      <ul class="pagination" style="justify-content: center;">
+        <li class="page-item" id ="buttonFirstPage">
+          <a class="page-link">First Page</a>
+        </li>
+        <li class="page-item disabled" id ="buttonPreviousPage">
+          <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item" id ="buttonNextPage">
+          <a class="page-link">Next</a>
+        </li>
+        <li class="page-item" id ="buttonLastPage">
+          <a class="page-link">Last Page</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </body>
 
 </html>
