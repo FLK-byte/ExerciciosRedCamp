@@ -1,5 +1,5 @@
 window.onload = async function () {
-    const url = "https://599b-187-182-47-3.sa.ngrok.io/user"
+    const url = "http://localhost:3000/user"
     //https://803a-2804-431-e7c1-70a8-84c1-80ac-f1a5-20a4.sa.ngrok.io/users"
     let count = 0
     async function getUsers(count) {
