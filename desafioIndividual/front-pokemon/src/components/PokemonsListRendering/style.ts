@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 
 const Page = styled.div`
-    display: flex;
+    /* display: flex;
     justify-content:center;
     flex-wrap: wrap;
-    height: 85vh;
     align-content: center;
+ */
+    height: 85vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
 
 export {

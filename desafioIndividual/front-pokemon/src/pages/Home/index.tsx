@@ -14,19 +14,19 @@ export function Home() {
             <LeftBar>
                 <LogoComponent />
                 <Options>
-                    <Button variant="text" sx={{ color: "white", fontSize: "18px" }}
+                    <Button variant="text" sx={ToRender == "AllPokemons" ? {color: "yellow", fontSize: "15px" } : {color: "white", fontSize: "15px" }}
                     onClick={()=>{setToRender("AllPokemons")}}
                     >Todos os pokemons</Button>
-                    <Button variant="text" sx={{ color: "white", fontSize: "18px" }}
+                    <Button variant="text" sx={ToRender == "MyLists" ? {color: "yellow", fontSize: "15px" } : {color: "white", fontSize: "15px" }}
                     onClick={()=>{setToRender("MyLists")}}
                     >Minhas Listas</Button>
-                    <Button variant="text" sx={{ color: "white", fontSize: "18px" }}
+                    <Button variant="text" sx={ToRender == "MyPokemons" ? {color: "yellow", fontSize: "15px" } : {color: "white", fontSize: "15px" }}
                     onClick={()=>{setToRender("MyPokemons")}}
                     >Meus pokemons</Button>
-                    <Button variant="text" sx={{ color: "white", fontSize: "18px" }}
+                    <Button variant="text" sx={{ color: "white", fontSize: "15px" }}
                     onClick={()=>{alert("Criar nova lista ainda nao ta feito")}}
                     >Criar nova lista</Button>
-                    <Button variant="text" sx={{ color: "white", fontSize: "18px" }}
+                    <Button variant="text" sx={{ color: "white", fontSize: "15px" }}
                     onClick={()=>{alert("Criar novo pokemon ainda nao ta feito")}}
                     >Criar novo pokemon</Button>
                 </Options>
