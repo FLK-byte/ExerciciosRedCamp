@@ -1,4 +1,4 @@
-import { DividerPage, Input, InputArea, LeftPage, LoginArea, Page, RightPage } from './style'
+import { DividerPage, Input, InputArea, LeftPage, LoginArea, Page, RightPage, ImgPokemon } from './style'
 import { TextField, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 
@@ -34,7 +34,7 @@ export function Cadastro() {
             </div>
         </DividerPage>
         <RightPage>
-            <img src="./src/assets/CharmanderCadastro.png" width="100%" height="99%" />
+            <ImgPokemon src="./src/assets/CharmanderCadastro.png"/>
         </RightPage>
     </Page>)
 }

@@ -17,8 +17,8 @@ const Input = styled.input`
    resize: none;
    outline: none;
    width: 25vw; 
-   border-Radius : 10px; 
-   height: 33px;
+   border-Radius : 37px; 
+   height: 53px;
 `
 const InputArea = styled.div`
     display: flex;
@@ -40,7 +40,11 @@ const RightPage = styled.div`
     height: 100vh;
     background-color: black;
 `
-
+const ImgPokemon = styled.img`
+    position: absolute;
+    height: 100vh;
+    width: 68vw;
+`
 export {
-    Page, LeftPage, RightPage, LoginArea, Input, InputArea, DividerPage
+    Page, LeftPage, RightPage, LoginArea, Input, InputArea, DividerPage, ImgPokemon
 }
