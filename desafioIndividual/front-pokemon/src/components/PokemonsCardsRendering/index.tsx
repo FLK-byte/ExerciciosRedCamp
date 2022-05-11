@@ -3,25 +3,19 @@ import { useEffect, useState } from 'react'
 import { CardActionArea, Card, CardContent, CardMedia, Typography, Pagination } from '@mui/material';
 import { IPokemon } from '../../models/IPokemon'
 import { Page, Pokemons } from './style'
+import { IDataApi } from '../../models/IDataApi';
 
-interface IDataApi {
-    data: {
-        data: [IPokemon],
-        metaData: [{
-            total: number,
-            page: number
-        }]
-    }
 
-}
 export function PokemonsCardsRendering() {
     const [data, setData] = useState<IPokemon[]>()
     const [count, setCount] = useState<number>(0)
     const [pageAmount, setPageAmount] = useState<number>()
     useEffect(() => {
         async function callApi() {
-            const { data }: IDataApi = await axios(`http://localhost:1337/pokemon?page=${count - 1}&limit=6`)
+            const { data }: IDataApi = await axios(`http://localhost:1337/pokemon?page=${count-1}&limit=6`)
             setData(data.data)
+            setPageAmount(parseInt((data.metaData[0].total/6).toString()))
+            console.log((data.metaData[0].total))
         }
         callApi()
     }, [count])
@@ -51,7 +45,7 @@ export function PokemonsCardsRendering() {
                     </Card>)
                 })}
             </Pokemons>
-            <Pagination onChange={(e, page) => { setCount(page)}} sx={{ display: 'flex', width: 80 + 'vw', justifyContent: 'center' }} count={10} color="primary" />
+            <Pagination onChange={(e, page) => { setCount(page)}} sx={{ display: 'flex', width: 80 + 'vw', justifyContent: 'center' }} count={pageAmount} color="primary" />
         </Page>
     )
 }
