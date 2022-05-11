@@ -26,7 +26,7 @@ const ChangeDisplay = styled.div`
     padding-left: 2vw;
 `
 const RenderArea = styled.div`
-    height: 80vh;
+    height: 85vh;
 `
 export {
     SearchArea, Title, TopPageArea, Page, SearchInput, ChangeDisplay, RenderArea

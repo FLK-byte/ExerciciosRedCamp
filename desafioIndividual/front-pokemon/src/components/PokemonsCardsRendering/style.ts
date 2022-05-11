@@ -5,6 +5,7 @@ const Pokemons = styled.div`
     justify-content:space-around;
     flex-wrap: wrap;
     height: 80vh;
+    width: 100vw;
 `
 
 const Page = styled.div`

@@ -2,12 +2,21 @@ import { Button, TextField } from '@mui/material'
 import { SearchArea, Title, TopPageArea, Page, SearchInput, ChangeDisplay, RenderArea } from './style'
 import ListIcon from '@mui/icons-material/List';
 import ViewComfyIcon from '@mui/icons-material/ViewComfy';
-import { useState } from 'react'
-import { PokemonsCardsRendering } from '../../components/PokemonsCardsRendering'
-import { PokemonsListRendering } from '../../components/PokemonsListRendering'
+import { useState, useEffect } from 'react'
+import { PokemonsCardsRendering } from '../PokemonsCardsRendering/index'
+import { PokemonsListRendering } from '../PokemonsListRendering/index'
+import { IPokemon } from '../../models/IPokemon';
+import { IDataApi } from '../../models/IDataApi';
+import axios from 'axios';
 
 export function AllPokemons() {
     const [VisionType, setVisionType] = useState<string>("cards")
+    const [pokemonSearched, setPokemonSearched] = useState<[IPokemon]>()
+    const [pokemonToSearch, setPokemonToSearch] = useState<string>("")
+    async function callApi() {
+        const { data }: IDataApi = await axios(`http://localhost:1337/pokemonByName?name=${pokemonToSearch}`)
+        setPokemonSearched([data] as [unknown] as [IPokemon])
+    }
     return (
         <Page>
             <TopPageArea>
@@ -15,9 +24,9 @@ export function AllPokemons() {
                 <SearchArea>
                     <SearchInput>
                         <img src="./src/assets/Lupa.png" style={{ position: "absolute", top: '21px', left: '-22px' }} />
-                        <TextField id="standard-basic" label="Pesquise um pokemon" variant="standard" sx={{ width: "55vw" }} />
+                        <TextField onChange={(e) => { setPokemonToSearch(e.target.value) }} id="standard-basic" label="Pesquise um pokemon" variant="standard" sx={{ width: "55vw" }} />
                     </SearchInput>
-                    <Button variant="contained" sx={{ color: "white", width: "12vw" }} color="error">Buscar</Button>
+                    <Button variant="contained" sx={{ color: "white", width: "12vw" }} color="error" onClick={() => { callApi() }}>Buscar</Button>
                 </SearchArea>
                 {VisionType == "cards" ?
                     <ChangeDisplay>
@@ -31,10 +40,10 @@ export function AllPokemons() {
                 }
             </TopPageArea>
             <RenderArea>
-            {VisionType == "cards" ?
-                <PokemonsCardsRendering/> :
-                <PokemonsListRendering/>
-            }
+                {VisionType == "cards" ?
+                    <PokemonsCardsRendering pokemon={pokemonSearched as [IPokemon]} /> :
+                    <PokemonsListRendering pokemon={pokemonSearched as [IPokemon]}/>
+                }
             </RenderArea>
         </Page>
     )

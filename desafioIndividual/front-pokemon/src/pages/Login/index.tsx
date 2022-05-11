@@ -19,7 +19,7 @@ export function Login() {
                 <a href='' style={{ textDecoration: "none", color: 'yellow', marginTop: "10px" }}>Esqueci minha senha</a>
                 <Button variant="contained" sx={{ marginTop: '10px' }} onClick={() => {a ? navigate("/home") : null}}>Entrar</Button>
             </LoginArea>
-            <Button style={{ textDecoration: "underline", color: 'white', marginTop: "10px" }}>Fazer Cadastro</Button>
+            <Button style={{ textDecoration: "underline", color: 'white', marginTop: "10px" }} onClick={()=>{navigate('/cadastro')}}>Fazer Cadastro</Button>
         </LeftPage>
         <DividerPage>
             <div style={{ display: "flex", alignItems: "center", zIndex: "1" }}>
