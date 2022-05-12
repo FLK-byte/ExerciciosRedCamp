@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material'
 import { SearchArea, Title, TopPageArea, Page, SearchInput, ChangeDisplay, RenderArea } from './style'
 import ListIcon from '@mui/icons-material/List';
 import ViewComfyIcon from '@mui/icons-material/ViewComfy';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { PokemonsCardsRendering } from '../PokemonsCardsRendering/index'
 import { PokemonsListRendering } from '../PokemonsListRendering/index'
 import { IPokemon } from '../../models/IPokemon';
@@ -15,10 +15,13 @@ export function AllPokemons() {
     const [VisionType, setVisionType] = useState<string>("cards")
     const [pokemonSearched, setPokemonSearched] = useState<[IPokemon]>()
     const [pokemonToSearch, setPokemonToSearch] = useState<string>("")
+    const [pokemonToForm, setPokemonToForm] = useState()
+
     async function callApi() {
         const { data }: IDataApi = await axios(`http://localhost:1337/pokemonByName?name=${pokemonToSearch}`)
         setPokemonSearched([data] as [unknown] as [IPokemon])
     }
+    const PokemonForm = (pokemon: any) =>{setPokemonToForm(pokemon)}
     const handleTeste = () => { setTeste(!teste) }
     return (
         <Page>
@@ -44,10 +47,10 @@ export function AllPokemons() {
             </TopPageArea>
             <RenderArea>
                 {
-                    teste == true && <><Button onClick={handleTeste}>EITA POOOOOOOOORA</Button><FormPokemon /></>
+                    teste == true && <FormPokemon handleTeste={handleTeste} pokemon={pokemonToForm}/>
                 }
                 {teste == false ? VisionType == "cards" ?
-                    <PokemonsCardsRendering pokemon={pokemonSearched as [IPokemon]} handleTeste={handleTeste} /> :
+                    <PokemonsCardsRendering pokemon={pokemonSearched as [IPokemon]} handleTeste={handleTeste} PokemonForm={PokemonForm}/> :
                     <PokemonsListRendering pokemon={pokemonSearched as [IPokemon]} /> : null
                 }
             </RenderArea>

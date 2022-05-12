@@ -12,7 +12,7 @@ export function PokemonsListRendering(props: { pokemon: IPokemon[] }) {
     const [pageAmount, setPageAmount] = useState<number>()
     useEffect(() => {
         async function callApi() {
-            const { data }: IDataApi = await axios(`http://localhost:1337/pokemon?page=${count - 1}&limit=6`)
+            const { data }: IDataApi = await axios(`http://localhost:1337/pokemon?page=${count - 1}&limit=12`)
             setData(data.data)
             setPageAmount(parseInt((data.metaData[0].total / 6).toString()))
             console.log((data.metaData[0].total))
@@ -23,7 +23,7 @@ export function PokemonsListRendering(props: { pokemon: IPokemon[] }) {
     return (
         <Page>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ minWidth: 650, whiteSpace: "nowrap "}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Name Pokemon</TableCell>

@@ -6,6 +6,7 @@ const Pokemons = styled.div`
     flex-wrap: wrap;
     height: 80vh;
     width: 100vw;
+    overflow: scroll;
 `
 
 const Page = styled.div`

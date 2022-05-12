@@ -1,18 +1,11 @@
 import { IPokemon } from "../../models/IPokemon"
-import { CardActionArea, Card, CardContent, CardMedia, Typography, Modal, Box } from '@mui/material';
-import { useState } from 'react';
-import { styleModal } from './style'
-import { FormPokemon } from '../FormPokemon/index'
+import { CardActionArea, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-export function Cards(data: any) {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
+export function Cards(props: any) {
     return (<>
-        {data.data?.map((pokemon: IPokemon, index: number) => {
+        {props.data?.map((pokemon: IPokemon, index: number) => {
             return (
-                <Card onClick={() => data.handleTeste(true)} sx={{ width: 21 + "vw", height: 39 + 'vh', borderRadius: 10 + 'px', boxShadow: '0px 2px 40px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 /14%)' }} key={index}>
+                <Card onClick={() => { props.handleTeste(), props.PokemonForm(pokemon) }} sx={{ width: 21 + "vw", height: 39 + 'vh', borderRadius: 10 + 'px', boxShadow: '0px 2px 40px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 /14%)' }} key={index}>
                     <CardActionArea sx={{ height: 100 + '%' }}>
                         <CardMedia
                             component="img"
@@ -33,10 +26,5 @@ export function Cards(data: any) {
                 </Card>
             )
         })}
-        <Modal open={open} onClose={handleClose}>
-            <Box sx={styleModal}>
-                <FormPokemon />
-            </Box>
-        </Modal>
     </>)
 }
