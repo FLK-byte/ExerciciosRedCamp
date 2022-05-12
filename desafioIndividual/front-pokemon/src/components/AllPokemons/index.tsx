@@ -8,8 +8,10 @@ import { PokemonsListRendering } from '../PokemonsListRendering/index'
 import { IPokemon } from '../../models/IPokemon';
 import { IDataApi } from '../../models/IDataApi';
 import axios from 'axios';
+import { FormPokemon } from '../FormPokemon/index'
 
 export function AllPokemons() {
+    const [teste, setTeste] = useState(false)
     const [VisionType, setVisionType] = useState<string>("cards")
     const [pokemonSearched, setPokemonSearched] = useState<[IPokemon]>()
     const [pokemonToSearch, setPokemonToSearch] = useState<string>("")
@@ -17,6 +19,7 @@ export function AllPokemons() {
         const { data }: IDataApi = await axios(`http://localhost:1337/pokemonByName?name=${pokemonToSearch}`)
         setPokemonSearched([data] as [unknown] as [IPokemon])
     }
+    const handleTeste = () => { setTeste(!teste) }
     return (
         <Page>
             <TopPageArea>
@@ -40,9 +43,12 @@ export function AllPokemons() {
                 }
             </TopPageArea>
             <RenderArea>
-                {VisionType == "cards" ?
-                    <PokemonsCardsRendering pokemon={pokemonSearched as [IPokemon]} /> :
-                    <PokemonsListRendering pokemon={pokemonSearched as [IPokemon]}/>
+                {
+                    teste == true && <><Button onClick={handleTeste}>EITA POOOOOOOOORA</Button><FormPokemon /></>
+                }
+                {teste == false ? VisionType == "cards" ?
+                    <PokemonsCardsRendering pokemon={pokemonSearched as [IPokemon]} handleTeste={handleTeste} /> :
+                    <PokemonsListRendering pokemon={pokemonSearched as [IPokemon]} /> : null
                 }
             </RenderArea>
         </Page>

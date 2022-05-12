@@ -29,5 +29,6 @@ export interface IPokemon {
     "Not-Gettable": number,
     "Future Evolve": number,
     "100% CP @ 40": number,
-    "100% CP @ 39": number
+    "100% CP @ 39": number,
+    "Description"?: string
 }

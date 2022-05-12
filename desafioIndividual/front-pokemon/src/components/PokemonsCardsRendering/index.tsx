@@ -6,7 +6,7 @@ import { Page, Pokemons } from './style'
 import { IDataApi } from '../../models/IDataApi';
 import { Cards } from '../RenderCard/index'
 
-export function PokemonsCardsRendering(props: { pokemon: IPokemon[] }) {
+export function PokemonsCardsRendering(props: { pokemon: IPokemon[], handleTeste: ()=>void }) {
     const [data, setData] = useState<IPokemon[]>()
     const [count, setCount] = useState<number>(0)
     const [pageAmount, setPageAmount] = useState<number>()
@@ -23,7 +23,7 @@ export function PokemonsCardsRendering(props: { pokemon: IPokemon[] }) {
     return (
         <Page>
             <Pokemons>
-                <Cards data={(props.pokemon != undefined ? props.pokemon[0] != null ? props.pokemon : null : null) || data} />
+                <Cards data={(props.pokemon != undefined ? props.pokemon[0] != null ? props.pokemon : null : null) || data} handleTeste={props.handleTeste}/>
             </Pokemons>
             <Pagination onChange={(e, page) => { setCount(page) }} sx={{ display: 'flex', width: 80 + 'vw', justifyContent: 'center' }} count={(props.pokemon != undefined ? props.pokemon[0] != null ? 1 : null : null) || pageAmount} color="primary" />
         </Page>
