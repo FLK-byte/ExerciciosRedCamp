@@ -24,6 +24,7 @@ export function PokemonsCardsRendering(props: { pokemon: IPokemon[], handleTeste
                 setData(data.data)
                 setPageAmount(parseInt((data.metaData[0].total / 12).toString()))
             } catch (err) {
+                alert("Sua seção expirou")
                 localStorage.removeItem('jwt')
                 navigate('/')
             }
