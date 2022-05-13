@@ -6,6 +6,7 @@ const CardMyList = styled.div`
     border-radius: 10px;
     height: 30vh;
     padding: 13px;
+    cursor: pointer;
 `
 const SearchArea = styled.div`
     display: flex;

@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useState } from 'react'
 
 export function Login() {
-    const [email, setEmail] = useState<string>('pongo@gmail.com')
+    const [email, setEmail] = useState<string>('cleber@gmail.com')
     const [senha, setSenha] = useState<string>('senhaSeguraConfia')
     async function callApi() {
         try {
@@ -26,9 +26,9 @@ export function Login() {
             <LoginArea>
                 <InputArea>
                     <label style={{ color: "white" }}>Usuário</label>
-                    <Input onChange={(e) => { setEmail(e.target.value) }} />
+                    <Input onChange={(e) => { setEmail(e.target.value) }} type='email'/>
                     <label style={{ marginTop: "10px", color: "white" }}>Senha</label>
-                    <Input onChange={(e) => { setSenha(e.target.value) }} />
+                    <Input onChange={(e) => { setSenha(e.target.value) }} type='password'/>
                 </InputArea>
                 <a href='' style={{ textDecoration: "none", color: 'yellow', marginTop: "10px" }}>Esqueci minha senha</a>
                 <Button variant="contained" sx={{ marginTop: '10px' }} onClick={async () => { await callApi(), navigate("/home") }}>Entrar</Button>

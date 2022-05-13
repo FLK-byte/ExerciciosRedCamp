@@ -41,6 +41,18 @@ const CreatePokemonModal = {
     boxShadow: 24,
     p: 4,
 }
+
+const CreateListModal = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 50+'vw',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+}
 export {
-    AllPage, LeftBar, RightBar, Options, ExitArea, CreatePokemonModal
+    AllPage, LeftBar, RightBar, Options, ExitArea, CreatePokemonModal, CreateListModal
 }
