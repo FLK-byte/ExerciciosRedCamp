@@ -1,6 +1,6 @@
 export interface IPokemon {
     "_id": string,
-    "Row": number,
+    "Row"?: number,
     "Name": string,
     "Pokedex Number": number,
     "Img name": number,

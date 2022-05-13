@@ -8,7 +8,7 @@ import { PokemonsListRendering } from '../PokemonsListRendering/index'
 import { IPokemon } from '../../models/IPokemon';
 import { IDataApi } from '../../models/IDataApi';
 import axios from 'axios';
-import { FormPokemon } from '../DetailedPokemon/index'
+import { FormPokemon } from '../DetailedPokemonForm/index'
 
 export function AllPokemons() {
     const [teste, setTeste] = useState(false)
