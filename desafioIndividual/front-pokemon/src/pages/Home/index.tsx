@@ -8,7 +8,7 @@ import { MyLists } from '../../components/MyLists'
 import { MyPokemons } from '../../components/MyPokemons'
 import { useState } from 'react'
 import { FormCreatePokemon } from '../../components/CreatePokemonForm/index'
-
+import {FormCreateList} from '../../components/CreateList/index'
 
 export function Home() {
     const [ToRender, setToRender] = useState<string>("AllPokemons")
@@ -18,7 +18,7 @@ export function Home() {
 
     const [openListModal, setOpenListModal] = useState(false);
     const handleOpenListModal = () => setOpenListModal(true);
-    const handleCloseListModal = () => { setOpenListModal(false), setToRender("MyLists") };
+    const handleCloseListModal = () => { setOpenListModal(false), setToRender("AllPokemons") };
 
 
     const navigate = useNavigate()
@@ -72,7 +72,7 @@ export function Home() {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={CreateListModal}>
-                        
+                        <FormCreateList handleClose={handleCloseListModal}/>
                     </Box>
                 </Modal>
             </RightBar>

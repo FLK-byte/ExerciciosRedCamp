@@ -55,11 +55,11 @@ exports.createOnePokemon = async (bodyPokemon) => {
 }
 
 exports.getOnePokemonById = async (id) => {
-/*     const connect = await connectRedis()
-    const key = `Pokemons - id: ${id}`
-    const result = await connect.get(key)
-    if (result) return { data: JSON.parse(result), status: 200 }
- */
+    /*     const connect = await connectRedis()
+        const key = `Pokemons - id: ${id}`
+        const result = await connect.get(key)
+        if (result) return { data: JSON.parse(result), status: 200 }
+     */
     const { collection } = await connectDb('Pokemon', 'pokemons')
     const data = await collection.findOne({ _id: ObjectId(id) })
     //await connect.set(key, JSON.stringify(data))
@@ -92,4 +92,21 @@ exports.removePokemon = async (id) => {
     const dataPokemon = await collection.findOne({ _id: ObjectId(id) })
     const data = await collection.deleteOne({ _id: ObjectId(id) })
     return { data: dataPokemon, status: 200 }
+}
+
+exports.getNames = async () => {
+    try {
+        const { collection } = await connectDb('Pokemon', 'pokemons')
+        const data = await collection.find({}, { Name: 1 }).toArray()
+
+        var nomes = []
+        data.map((pokemon)=>{
+            nomes.push({"Name" : pokemon.Name})
+        })
+        console.log(nomes)
+        return { data: nomes, status: 200 }
+    } catch (err) {
+        console.log("Erro model putPokemon ->", err.message)
+    }
+
 }

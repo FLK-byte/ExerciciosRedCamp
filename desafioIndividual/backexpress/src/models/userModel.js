@@ -18,7 +18,7 @@ function findAndClearIdInKeys(id) {
 } */
 const generateToken = (params = {})=>{
     return jwt.sign(params, process.env.JWT_TOKEN, {
-        expiresIn: 180
+        expiresIn: 60
     })
 }
 exports.getAllUsers = async (page, limit) => {
@@ -80,16 +80,16 @@ exports.getOneUserByEmail = async (email) => {
     return { data, status: 200 }
 }
 
-exports.putUser = async (id, { email, senha }) => {
+exports.putUser = async (id, { email, senha, listas, myPokemons }) => {
     try {
         //findAndClearIdInKeys(id)
         /* const connect = await connectRedis()
         const key = `users - id: ${id}` */
         const { collection } = await connectDb('Pokemon', 'pokemonUsers')
-        const { insertedId } = await collection.updateOne({ _id: ObjectId(id) }, { $set: { email, senha } })
+        const { insertedId } = await collection.updateOne({ _id: ObjectId(id) }, { $set: {  email, senha, listas: listas, myPokemons: myPokemons } })
 
         //await connect.set(key, JSON.stringify({ id: insertedId, email, senha }))
-        return { data: { id: insertedId, email, senha }, status: 201 }
+        return { data: { id: insertedId, email, senha, listas, myPokemons }, status: 201 }
     } catch (err) {
         console.log("Erro model putUser ->", err.message)
     }

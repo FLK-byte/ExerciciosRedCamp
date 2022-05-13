@@ -1,4 +1,4 @@
-const { createOnePokemon, getAllPokemons, putPokemon, getOnePokemonById, removePokemon, getOnePokemonByName } = require('../models/pokemonModel')
+const { createOnePokemon, getAllPokemons, putPokemon, getOnePokemonById, removePokemon, getOnePokemonByName, getNames } = require('../models/pokemonModel')
 
 exports.getPokemons = async (req, res) => {
     try {
@@ -48,6 +48,15 @@ exports.put = async (req, res) => {
 exports.removePokemon = async (req, res) => {
     try {
         const { data, status } = await removePokemon(req.params.id)
+        res.status(status).json(data)
+    } catch (err) {
+        res.status(500).json({ message: "Erro não esperado" })
+    }
+}
+
+exports.getPokemonNames = async (req, res) => {
+    try {
+        const { data, status } = await getNames()
         res.status(status).json(data)
     } catch (err) {
         res.status(500).json({ message: "Erro não esperado" })
