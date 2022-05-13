@@ -14,7 +14,7 @@ exports.authMiddleware = (req, res, next) => {
     if(!/^Bearer$/i.test(bearer)) res.status(401).json({ messageError: "Token mal formatado" })
 
     jwt.verify(token, process.env.JWT_TOKEN, (err, decoded)=>{
-        if (err) res.status(401).json({ messageError: "Token invalido" })
+        if (err) res.status(401).json({ messageError: err })
         
         req.userId = decoded.id
         return next()

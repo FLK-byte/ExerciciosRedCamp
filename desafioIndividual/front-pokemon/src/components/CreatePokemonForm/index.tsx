@@ -72,6 +72,10 @@ export const FormCreatePokemon = ({ handleClose }: any) => {
                 "100% CP @ 40": values.CP40,
                 "100% CP @ 39": values.CP39,
                 "Description": values.Description
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                }
             })
                 .then(res => { console.log(res) })
                 .catch(err => { console.log(err) })

@@ -76,6 +76,10 @@ export const FormPokemon = (props: { pokemon?: IPokemon, handleTeste?: () => voi
                 "100% CP @ 40": values.CP40,
                 "100% CP @ 39": values.CP39,
                 "Description": values.Description
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                }
             })
                 .then(res => { console.log(res) })
                 .catch(err => { console.log(err) })
@@ -446,7 +450,7 @@ export const FormPokemon = (props: { pokemon?: IPokemon, handleTeste?: () => voi
                         </Grid>
                     </Grid>
                 </Grid>
-                <DeleteConfirmationModal open={openDeleteModal} handleClose={() => setOpenDeleteModal(false)} pokemon={props.pokemon as IPokemon} goToMenu={()=>props.handleTeste ? props.handleTeste() : null}/>
+                <DeleteConfirmationModal open={openDeleteModal} handleClose={() => setOpenDeleteModal(false)} pokemon={props.pokemon as IPokemon} goToMenu={() => props.handleTeste ? props.handleTeste() : null} />
             </Container>
         </form >
     );

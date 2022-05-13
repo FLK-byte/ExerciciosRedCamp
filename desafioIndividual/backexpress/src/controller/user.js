@@ -1,4 +1,4 @@
-const { createOneUser, getAllUsers, putUser, getOneUserById, removeUser, authentication } = require('../models/userModel')
+const { createOneUser, getAllUsers, putUser, getOneUserById, removeUser, authentication, validToken } = require('../models/userModel')
 
 exports.getUsers = async (req, res) => {
     try {
@@ -47,10 +47,20 @@ exports.removeUser = async (req, res) => {
 }
 
 exports.auth = async (req, res) => {
-    try{
+    try {
         const { data, status } = await authentication(req.body)
         res.status(status).json(data)
-    }catch(err){
-        res.status(500).json({messageError: "Erro não esperado Auth"})
-    } 
+    } catch (err) {
+        res.status(500).json({ messageError: "Erro não esperado Auth" })
+    }
+}
+
+exports.isTokenValid = async (req, res) => {
+    try {
+        const { data } = await validToken(req.userId)
+        res.status(200).json({ data })
+    } catch (err) {
+        res.status(400).json({ message: "O token não é utilizável" })
+    }
+
 }

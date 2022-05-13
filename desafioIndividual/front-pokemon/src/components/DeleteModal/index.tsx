@@ -18,8 +18,12 @@ const style = {
 };
 
 function ChildModal(props: { goToMenu: () => void, closeParentModal: () => void, pokemon: IPokemon }) {
-    async function DeletarPokemon(){
-        await axios.delete(`http://localhost:1337/pokemon/${props.pokemon?._id}`)
+    async function DeletarPokemon() {
+        await axios.delete(`http://localhost:1337/pokemon/${props.pokemon?._id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
     }
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -31,7 +35,7 @@ function ChildModal(props: { goToMenu: () => void, closeParentModal: () => void,
 
     return (
         <>
-            <Button onClick={()=>{handleOpen(), DeletarPokemon()}}>Deletar Pokemon</Button>
+            <Button onClick={() => { handleOpen(), DeletarPokemon() }}>Deletar Pokemon</Button>
             <Modal
                 hideBackdrop
                 open={open}
@@ -78,7 +82,7 @@ export function DeleteConfirmationModal(props: { open: boolean, handleClose: () 
                         <Button onClick={() => { props.handleClose() }}>Cancelar Ação</Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <ChildModal goToMenu={props.goToMenu} closeParentModal={props.handleClose} pokemon={props.pokemon}/>
+                        <ChildModal goToMenu={props.goToMenu} closeParentModal={props.handleClose} pokemon={props.pokemon} />
                     </Grid>
                 </Grid>
             </Box>

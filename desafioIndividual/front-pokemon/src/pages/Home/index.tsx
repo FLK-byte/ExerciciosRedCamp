@@ -2,7 +2,7 @@ import { AllPage, LeftBar, RightBar, Options, ExitArea, CreatePokemonModal } fro
 import { LogoComponent } from '../../components/LogoComponent'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Button, Box, Modal } from '@mui/material';
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AllPokemons } from '../../components/AllPokemons'
 import { MyLists } from '../../components/MyLists'
 import { MyPokemons } from '../../components/MyPokemons'
@@ -14,7 +14,8 @@ export function Home() {
     const [ToRender, setToRender] = useState<string>("AllPokemons")
     const [openCreateModal, setOpenCreateModal] = useState(false);
     const handleOpen = () => setOpenCreateModal(true);
-    const handleClose = () => {setOpenCreateModal(false), setToRender("AllPokemons")};
+    const handleClose = () => { setOpenCreateModal(false), setToRender("AllPokemons") };
+    const navigate = useNavigate()
     return (
         <AllPage>
             <LeftBar>
@@ -38,7 +39,7 @@ export function Home() {
                 </Options>
                 <ExitArea>
                     <LogoutIcon />
-                    <Link to="/"><Button sx={{ color: "white" }}>Sair</Button></Link>
+                    <Button onClick={() => {  localStorage.removeItem('jwt'), navigate('/')  }} sx={{ color: "white" }}>Sair</Button>
                 </ExitArea>
             </LeftBar>
             <RightBar>
@@ -54,7 +55,7 @@ export function Home() {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={CreatePokemonModal}>
-                        <FormCreatePokemon handleClose={handleClose}/>
+                        <FormCreatePokemon handleClose={handleClose} />
                     </Box>
                 </Modal>
             </RightBar>

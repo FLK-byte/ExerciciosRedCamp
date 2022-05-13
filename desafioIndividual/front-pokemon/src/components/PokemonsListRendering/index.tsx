@@ -5,16 +5,28 @@ import { IPokemon } from '../../models/IPokemon'
 import axios from 'axios'
 import { Page } from './style'
 import { List } from '../RenderList/index'
+import {useNavigate} from 'react-router-dom'
 
 export function PokemonsListRendering(props: { pokemon: IPokemon[] }) {
     const [data, setData] = useState<IPokemon[]>()
     const [count, setCount] = useState<number>(0)
     const [pageAmount, setPageAmount] = useState<number>()
+    const navigate = useNavigate()
+
     useEffect(() => {
         async function callApi() {
-            const { data }: IDataApi = await axios(`http://localhost:1337/pokemon?page=${count - 1}&limit=12`)
-            setData(data.data)
-            setPageAmount(parseInt((data.metaData[0].total / 12).toString()))
+            try {
+                const { data }: IDataApi = await axios(`http://localhost:1337/pokemon?page=${count - 1}&limit=12`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                })
+                setData(data.data)
+                setPageAmount(parseInt((data.metaData[0].total / 12).toString()))
+            } catch (err) {
+                localStorage.removeItem('jwt')
+                navigate('/')
+            }
         }
         callApi()
     }, [count])

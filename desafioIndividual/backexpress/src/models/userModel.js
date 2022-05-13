@@ -113,3 +113,7 @@ exports.authentication = async ({ email, senha }) => {
         return { data: { messageError: "Usuario não encontrado" }, status: 400 }
     }
 }
+
+exports.validToken = async (id) =>{
+    return { data : {id}, status: 200}
+}

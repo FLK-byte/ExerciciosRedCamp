@@ -18,7 +18,11 @@ export function AllPokemons() {
     const [pokemonToForm, setPokemonToForm] = useState()
 
     async function callApi() {
-        const { data }: IDataApi = await axios(`http://localhost:1337/pokemonByName?name=${pokemonToSearch}`)
+        const { data }: IDataApi = await axios(`http://localhost:1337/pokemonByName?name=${pokemonToSearch}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
         setPokemonSearched([data] as [unknown] as [IPokemon])
     }
     const PokemonForm = (pokemon: any) =>{setPokemonToForm(pokemon)}
