@@ -1,6 +1,8 @@
 const { connectDb } = require('../database/connect')
 const { ObjectId } = require('mongodb')
 const { connectRedis } = require('../database/redis')
+const jwt = require('jsonwebtoken')
+require('dotenv/config')
 
 /* const storedKeys = []
 function findAndClearIdInKeys(id) {
@@ -14,6 +16,11 @@ function findAndClearIdInKeys(id) {
         })
     })
 } */
+const generateToken = (params = {})=>{
+    return jwt.sign(params, process.env.JWT_TOKEN, {
+        expiresIn: 180
+    })
+}
 exports.getAllUsers = async (page, limit) => {
     try {
 
@@ -49,18 +56,18 @@ exports.getAllUsers = async (page, limit) => {
     }
 }
 
-exports.createOneUser = async ({email, senha }) => {
+exports.createOneUser = async ({ email, senha, listas, myPokemons }) => {
     const { collection } = await connectDb('Pokemon', 'pokemonUsers')
-    const { insertedId } = await collection.insertOne({ email, senha })
-    return { data: { id: insertedId, email, senha }, status: 201 }
+    const { insertedId } = await collection.insertOne({ email, senha, listas: listas, myPokemons: myPokemons })
+    return { data: { id: insertedId, email, senha, listas, myPokemons, token : generateToken({ id: insertedId })  }, status: 201 }
 }
 
 exports.getOneUserById = async (id) => {
-/*     const connect = await connectRedis()
-    const key = `users - id: ${id}`
-    const result = await connect.get(key)
-    if (result) return { data: JSON.parse(result), status: 200 }
- */
+    /*     const connect = await connectRedis()
+        const key = `users - id: ${id}`
+        const result = await connect.get(key)
+        if (result) return { data: JSON.parse(result), status: 200 }
+     */
     const { collection } = await connectDb('Pokemon', 'pokemonUsers')
     const data = await collection.findOne({ _id: ObjectId(id) })
     //await connect.set(key, JSON.stringify(data))
@@ -93,4 +100,16 @@ exports.removeUser = async (id) => {
     const dataUser = await collection.findOne({ _id: ObjectId(id) })
     const data = await collection.deleteOne({ _id: ObjectId(id) })
     return { data: dataUser, status: 200 }
+}
+
+exports.authentication = async ({ email, senha }) => {
+    try {
+        const { collection } = await connectDb('Pokemon', 'pokemonUsers')
+        const data = await collection.findOne({ email: email, senha: senha })
+
+        data.senha = "Não vai ver a senha não :)"
+        return { data: { data, token : generateToken({ id: data._id }) }, status: 200 }
+    } catch (err) {
+        return { data: { messageError: "Usuario não encontrado" }, status: 400 }
+    }
 }

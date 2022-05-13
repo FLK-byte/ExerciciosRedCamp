@@ -1,4 +1,4 @@
-const { createOneUser, getAllUsers, putUser, getOneUserById, removeUser } = require('../models/userModel')
+const { createOneUser, getAllUsers, putUser, getOneUserById, removeUser, authentication } = require('../models/userModel')
 
 exports.getUsers = async (req, res) => {
     try {
@@ -44,4 +44,13 @@ exports.removeUser = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: "Erro não esperado" })
     }
+}
+
+exports.auth = async (req, res) => {
+    try{
+        const { data, status } = await authentication(req.body)
+        res.status(status).json(data)
+    }catch(err){
+        res.status(500).json({messageError: "Erro não esperado Auth"})
+    } 
 }
