@@ -9,6 +9,7 @@ import { IPokemon } from '../../models/IPokemon';
 import { IDataApi } from '../../models/IDataApi';
 import axios from 'axios';
 import { FormPokemon } from '../DetailedPokemonForm/index'
+import {useNavigate} from 'react-router-dom'
 
 export function AllPokemons() {
     const [teste, setTeste] = useState(false)
@@ -16,16 +17,23 @@ export function AllPokemons() {
     const [pokemonSearched, setPokemonSearched] = useState<[IPokemon]>()
     const [pokemonToSearch, setPokemonToSearch] = useState<string>("")
     const [pokemonToForm, setPokemonToForm] = useState()
+    const navigate = useNavigate()
 
     async function callApi() {
-        const { data }: IDataApi = await axios(`http://localhost:1337/pokemonByName?name=${pokemonToSearch}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('jwt')}`
-            }
-        })
-        setPokemonSearched([data] as [unknown] as [IPokemon])
+        try {
+            const { data }: IDataApi = await axios(`http://localhost:1337/pokemonByName?name=${pokemonToSearch}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                }
+            })
+            setPokemonSearched([data] as [unknown] as [IPokemon])
+        } catch (err) {
+            alert("Sua seção expirou")
+            localStorage.removeItem('jwt')
+            navigate('/')
+        }
     }
-    const PokemonForm = (pokemon: any) =>{setPokemonToForm(pokemon)}
+    const PokemonForm = (pokemon: any) => { setPokemonToForm(pokemon) }
     const handleTeste = () => { setTeste(!teste) }
     return (
         <Page>
@@ -51,10 +59,10 @@ export function AllPokemons() {
             </TopPageArea>
             <RenderArea>
                 {
-                    teste == true && <FormPokemon handleTeste={handleTeste} pokemon={pokemonToForm}/>
+                    teste == true && <FormPokemon handleTeste={handleTeste} pokemon={pokemonToForm} />
                 }
                 {teste == false ? VisionType == "cards" ?
-                    <PokemonsCardsRendering pokemon={pokemonSearched as [IPokemon]} handleTeste={handleTeste} PokemonForm={PokemonForm}/> :
+                    <PokemonsCardsRendering pokemon={pokemonSearched as [IPokemon]} handleTeste={handleTeste} PokemonForm={PokemonForm} /> :
                     <PokemonsListRendering pokemon={pokemonSearched as [IPokemon]} /> : null
                 }
             </RenderArea>

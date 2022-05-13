@@ -29,6 +29,7 @@ export function PokemonsCardsRendering(props: { pokemon: IPokemon[], handleTeste
                 navigate('/')
             }
         }
+        console.log(data)
         callApi()
     }, [count])
 
