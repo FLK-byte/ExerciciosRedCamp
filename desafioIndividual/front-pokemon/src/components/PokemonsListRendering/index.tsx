@@ -14,8 +14,7 @@ export function PokemonsListRendering(props: { pokemon: IPokemon[] }) {
         async function callApi() {
             const { data }: IDataApi = await axios(`http://localhost:1337/pokemon?page=${count - 1}&limit=12`)
             setData(data.data)
-            setPageAmount(parseInt((data.metaData[0].total / 6).toString()))
-            console.log((data.metaData[0].total))
+            setPageAmount(parseInt((data.metaData[0].total / 12).toString()))
         }
         callApi()
     }, [count])
@@ -72,7 +71,7 @@ export function PokemonsListRendering(props: { pokemon: IPokemon[] }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Pagination onChange={(e, page) => { setCount(page) }} sx={{ display: 'flex', width: 80 + 'vw', justifyContent: 'center' }} count={(props.pokemon != undefined ? props.pokemon[0] != null ? 1 : null : null) || pageAmount} color="primary" />
+            <Pagination onChange={(e, page) => { setCount(page) }} sx={{ display: 'flex', width: 80 + 'vw', justifyContent: 'center' }} count={(props.pokemon != undefined ? props.pokemon[0] != null ? 1 : null : null) || pageAmount ? pageAmount as number + 1 : 0} color="primary" />
         </Page>
     );
 }
