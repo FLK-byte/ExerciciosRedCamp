@@ -1,11 +1,12 @@
 import { useFormik } from 'formik';
 import { TextField, Button, Grid, Container, CardMedia } from '@mui/material';
-import { useState, useEffect } from 'react'
+import { useEffect, SyntheticEvent} from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios'
+import FALLBACK_IMAGE from '../../assets/pokemonDiferente.png'
 
 export const FormCreatePokemon = ({ handleClose }: any) => {
-    const [errorImg, setErrorImg] = useState(false)
+    const onMediaFallback = (event : SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = FALLBACK_IMAGE;
     const { values, handleChange, handleSubmit } = useFormik({
         initialValues: {
             PokemonName: "",
@@ -83,7 +84,6 @@ export const FormCreatePokemon = ({ handleClose }: any) => {
         },
     });
     useEffect(() => {
-        setErrorImg(false)
     }, [values.ImgName])
     return (
         <form onSubmit={handleSubmit}>
@@ -95,21 +95,15 @@ export const FormCreatePokemon = ({ handleClose }: any) => {
                                 <CloseIcon onClick={() => { handleClose() }} />
                             </Grid>
                             <Grid item xs={12}>
-                                {errorImg == false ? <CardMedia
+                               <CardMedia
                                     component="img"
                                     height="140"
-                                    onError={(e: any) => { e.target.onerror = null; setErrorImg(true) }}
+                                    onError={onMediaFallback}
                                     src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${values.ImgName.toString().padStart(3, "0")}.png`}
                                     sx={{ objectFit: 'contain' }}
-                                    alt="green iguana"
-                                /> : <CardMedia
-                                    component="img"
-                                    height="140"
-                                    onLoad={() => { console.log("AMOGUS") }}
-                                    src={`./src/assets/pokemonDiferente.png`}
-                                    sx={{ objectFit: 'contain' }}
-                                    alt="green iguana"
-                                />}
+                                    alt="Pokemon"
+                                /> 
+                
                                 {/* <img
                                     src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${values.ImgName.toString().padStart(3, "0")}.png`}
                                     onError={({ currentTarget }) => {
