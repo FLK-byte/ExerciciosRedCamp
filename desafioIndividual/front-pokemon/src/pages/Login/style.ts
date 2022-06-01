@@ -45,7 +45,10 @@ const RightPage = styled.div`
     height: 100vh;
     background-color: black;
 `
-
+const LabelInput = styled.label`
+	margin-top :10px; 
+	color: white;
+`
 export {
-    Page, LeftPage, RightPage, LoginArea, Input, InputArea, DividerPage, ImgPokemon
+    Page, LeftPage, RightPage, LoginArea, Input, InputArea, DividerPage, ImgPokemon, LabelInput
 }

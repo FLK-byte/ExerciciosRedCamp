@@ -1,4 +1,4 @@
-import { AllPage, LeftBar, RightBar, Options, ExitArea, CreatePokemonModal, CreateListModal } from './style'
+import { AllPage, LeftBar, RightBar, Options, ExitArea, CreatePokemonModal, CreateListModal, ButtonActivated, ButtonDesactivated } from './style'
 import { LogoComponent } from '../../components/LogoComponent'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Button, Box, Modal } from '@mui/material';
@@ -8,10 +8,11 @@ import { MyLists } from '../../components/MyLists'
 import { MyPokemons } from '../../components/MyPokemons'
 import { useState } from 'react'
 import { FormCreatePokemon } from '../../components/CreatePokemonForm/index'
-import {FormCreateList} from '../../components/CreateList/index'
+import { FormCreateList } from '../../components/CreateList/index'
 
-export function Home() {
+export function Home(): JSX.Element {
     const [ToRender, setToRender] = useState<string>("AllPokemons")
+
     const [openCreateModal, setOpenCreateModal] = useState(false);
     const handleOpenCreateModal = () => setOpenCreateModal(true);
     const handleCloseCreateModal = () => { setOpenCreateModal(false), setToRender("AllPokemons") };
@@ -20,26 +21,25 @@ export function Home() {
     const handleOpenListModal = () => setOpenListModal(true);
     const handleCloseListModal = () => { setOpenListModal(false), setToRender("AllPokemons") };
 
-
     const navigate = useNavigate()
     return (
         <AllPage>
             <LeftBar>
                 <LogoComponent />
                 <Options>
-                    <Button variant="text" sx={ToRender == "AllPokemons" ? { color: "yellow", fontSize: "15px" } : { color: "white", fontSize: "15px" }}
+                    <Button variant="text" sx={ToRender == "AllPokemons" ? { ...ButtonActivated } : { ...ButtonDesactivated }}
                         onClick={() => { setToRender("AllPokemons") }}
                     >Todos os pokemons</Button>
-                    <Button variant="text" sx={ToRender == "MyLists" ? { color: "yellow", fontSize: "15px" } : { color: "white", fontSize: "15px" }}
+                    <Button variant="text" sx={ToRender == "MyLists" ? { ...ButtonActivated } : { ...ButtonDesactivated }}
                         onClick={() => { setToRender("MyLists") }}
                     >Minhas Listas</Button>
-                    <Button variant="text" sx={ToRender == "MyPokemons" ? { color: "yellow", fontSize: "15px" } : { color: "white", fontSize: "15px" }}
+                    <Button variant="text" sx={ToRender == "MyPokemons" ? { ...ButtonActivated } : { ...ButtonDesactivated }}
                         onClick={() => { setToRender("MyPokemons") }}
                     >Meus pokemons</Button>
-                    <Button variant="text" sx={ToRender == "MyCreateList" ? { color: "yellow", fontSize: "15px" } : { color: "white", fontSize: "15px" }}
+                    <Button variant="text" sx={ToRender == "MyCreateList" ? { ...ButtonActivated } : { ...ButtonDesactivated }}
                         onClick={() => { setToRender("MyCreateList"), handleOpenListModal() }}
                     >Criar nova lista</Button>
-                    <Button variant="text" sx={ToRender == "MyForm" ? { color: "yellow", fontSize: "15px" } : { color: "white", fontSize: "15px" }}
+                    <Button variant="text" sx={ToRender == "MyForm" ? { ...ButtonActivated } : { ...ButtonDesactivated }}
                         onClick={() => { setToRender("MyForm"), handleOpenCreateModal() }}
                     >Criar novo pokemon</Button>
                 </Options>
@@ -72,7 +72,7 @@ export function Home() {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={CreateListModal}>
-                        <FormCreateList handleClose={handleCloseListModal}/>
+                        <FormCreateList handleClose={handleCloseListModal} />
                     </Box>
                 </Modal>
             </RightBar>
